@@ -74,8 +74,8 @@ func main() {
 }
 ```
 
-- YOMO_SOURCE_MQTT_ZIPPER_ADDR: Set the service address of the remote yomo-zipper.
-- YOMO_SOURCE_MQTT_SERVER_ADDR: Set the external service address of this yomo-source.
+- YOMO_SOURCE_MQTT_ZIPPER_ADDR: Set the service address of the remote noise-zipper.
+- YOMO_SOURCE_MQTT_SERVER_ADDR: Set the external service address of this noise-source.
 - The data to be sent needs to be encoded using y3-codec.
 
 #### 3. run
