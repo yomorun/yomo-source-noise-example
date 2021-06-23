@@ -21,7 +21,7 @@ func main() {
 	handler := func(topic string, payload []byte, writer receiver.ISourceWriter) error {
 		log.Printf("receive: topic=%v, payload=%v\n", topic, string(payload))
 
-		// 1.get data from MQTT
+		// 1.get data from MQTT, like {"noise":45.6}
 		var raw map[string]int32
 		err := json.Unmarshal(payload, &raw)
 		if err != nil {
@@ -44,7 +44,7 @@ func main() {
 		return nil
 	}
 
-	receiver.CreateRunner(os.Getenv("YOMO_SOURCE_MQTT_ZIPPER_ADDR")).
+	receiver.CreateRunner("yomo-source", os.Getenv("YOMO_SOURCE_MQTT_ZIPPER_ADDR")).
 		WithServerAddr(os.Getenv("YOMO_SOURCE_MQTT_SERVER_ADDR")).
 		WithHandler(handler).
 		Run()
