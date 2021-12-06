@@ -106,6 +106,6 @@ You can run the service with the following command:
 docker run --rm --name noise-source -p 1883:1883 \
   -e YOMO_SOURCE_MQTT_ZIPPER_ADDR=192.168.108.100:9999 \
   -e YOMO_SOURCE_MQTT_SERVER_ADDR=0.0.0.0:1883 \
-  yomorun/noise-source:latest
+  yomorun/noise-source:0.0.6
 ```
 
