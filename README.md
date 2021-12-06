@@ -28,16 +28,14 @@ import (
 	"log"
 	"os"
 
-	"github.com/yomorun/y3-codec-golang"
 	"github.com/yomorun/yomo-source-mqtt-starter/pkg/utils"
-
 	"github.com/yomorun/yomo-source-mqtt-starter/pkg/receiver"
 )
 
 type NoiseData struct {
-	Noise float32 `y3:"0x11"` // Noise value
-	Time  int64   `y3:"0x12"` // Timestamp (ms)
-	From  string  `y3:"0x13"` // Source IP
+	Noise float32 `json:"noise"` // Noise value
+	Time  int64   `json:"time"` // Timestamp (ms)
+	From  string  `json:"from"` // Source IP
 }
 
 func main() {
@@ -51,10 +49,10 @@ func main() {
 			log.Printf("Unmarshal payload error:%v", err)
 		}
 
-		// 2.generate y3-codec format
+		// 2.generate json-codec format
 		noise := float32(raw["noise"])
 		data := NoiseData{Noise: noise, Time: utils.Now(), From: utils.IpAddr()}
-		sendingBuf, _ := y3.NewCodec(0x10).Marshal(data)
+		sendingBuf, _ := json.Marshal(data)
 
 		// 3.send data to remote workflow engine
 		_, err = writer.Write(sendingBuf)
@@ -76,7 +74,7 @@ func main() {
 
 - YOMO_SOURCE_MQTT_ZIPPER_ADDR: Set the service address of the remote noise-zipper.
 - YOMO_SOURCE_MQTT_SERVER_ADDR: Set the external service address of this noise-source.
-- The data to be sent needs to be encoded using y3-codec.
+- The data to be sent needs to be encoded using JSON codec.
 
 #### 3. run
 
